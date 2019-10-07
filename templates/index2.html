@@ -104,7 +104,7 @@
                         <li><a href="admin.html">Admin section</a></li>
                         <li><a href="submit_driver.html">Submit Driver</a></li>
                         <li><a href="#0" data-toggle="modal" data-target="#login_2">User Login</a></li> -->
-                        <li><a href="#0" data-toggle="modal" data-target="#login_2">登录</a></li>        
+                    <li><p style="font-size: 14px; color: white">{{ uname }}</p></li>        
                         <!-- <li><a href="detail_page_2.html">Restaurant detail page</a></li>
                         <li><a href="blog.html">Blog</a></li>
                         <li><a href="contacts.html">Contacts</a></li>
@@ -114,8 +114,8 @@
                         <li><a href="icon_pack_2.html">Icon pack 2</a></li>
                     </ul>
                     </li> -->
-                    <li><a href="#0" data-toggle="modal" data-target="#register">注册</a></li>
-                    <!-- <li><a href="{{ url_for('reg_handle') }}">注册</a></li> -->
+                    <!-- <li><a href="#0" data-toggle="modal" data-target="#register">注销</a></li> -->
+                    <a id="logout" style="color: white; font-size: 14px" href="javascript:;">注销</a>
                     <!-- <li><a href="#0">Purchase this template</a></li> -->
                 </ul>
             </div><!-- End main-menu -->
@@ -490,37 +490,36 @@
 <div class="layer"></div><!-- Mobile menu overlay mask -->
 
 <!-- Login modal -->   
-<div class="modal fade" id="login_2" tabindex="-1" role="dialog" aria-labelledby="myLogin" aria-hidden="true">
+<!-- <div class="modal fade" id="login_2" tabindex="-1" role="dialog" aria-labelledby="myLogin" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content modal-popup">
 				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
-				<form action="/login" class="popup-form" id="myLogin" method="POST">
+				<form action="#" class="popup-form" id="myLogin">
                 	<div class="login_icon"><i class="icon_lock_alt"></i></div>
-					<input type="text" class="form-control form-white" id="uname" name="uname" placeholder="用户名">
-					<input type="password" class="form-control form-white" id="upass" name="upass" placeholder="密码">
+					<input type="text" class="form-control form-white" id="uname" name="uname" placeholder="Username">
+					<input type="password" class="form-control form-white" id="upass" name="upass" placeholder="Password">
 					<div class="text-left">
-						<a href="#">忘记密码?</a>
+						<a href="#">Forgot Password?</a>
 					</div>
-					<button type="submit" class="btn btn-submit">登录</button>
+					<button type="submit" class="btn btn-submit">Submit</button>
 				</form>
 			</div>
-		</div>
-	</div><!-- End modal -->   
+		</div> -->
+    <!-- </div> -->
+    <!-- End modal -->   
     
 <!-- Register modal -->   
-<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myRegister" aria-hidden="true">
+<!-- <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myRegister" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content modal-popup">
 				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
-				<form action="/reg" class="popup-form" id="myRegister" method="POST">
+				<form action="#" class="popup-form" id="myRegister">
                 	<div class="login_icon"><i class="icon_lock_alt"></i></div>
-                    <input type="text" class="form-control form-white" placeholder="用户名" id="uname" name="uname">
-                    <input type="password" class="form-control form-white" placeholder="密码"  id="upass" name="upass">
-                    <input type="password" class="form-control form-white" placeholder="确认密码"  id="upass2" name="upass2">
-
-					<input type="text" class="form-control form-white" placeholder="手机号" id="phone" name="phone">
-                    <input type="email" class="form-control form-white" placeholder="邮箱" id="email" name="email">
-                    
+					<input type="text" class="form-control form-white" placeholder="Name">
+					<input type="text" class="form-control form-white" placeholder="Last Name">
+                    <input type="email" class="form-control form-white" placeholder="Email">
+                    <input type="text" class="form-control form-white" placeholder="Password"  id="password1">
+                    <input type="text" class="form-control form-white" placeholder="Confirm password"  id="password2">
                     <div id="pass-info" class="clearfix"></div>
 					<div class="checkbox-holder text-left">
 						<div class="checkbox">
@@ -528,17 +527,38 @@
 							<label for="check_2"><span>I Agree to the <strong>Terms &amp; Conditions</strong></span></label>
 						</div>
 					</div>
-					<button type="submit" class="btn btn-submit">注册</button>
+					<button type="submit" class="btn btn-submit">Register</button>
 				</form>
 			</div>
 		</div>
-	<!-- </div>End Register modal -->
+    </div> -->
+    <!-- End Register modal -->
     
 <!-- COMMON SCRIPTS -->
 <script src="{{ url_for('static', filename='js/jquery-2.2.4.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/common_scripts_min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/functions.js') }}"></script>
 <script src="{{ url_for('static', filename='assets/validate.js') }}"></script>
+
+
+<!-- 注销 -->
+<script>
+    $(function(){
+        $("#logout").click(function(){
+            $.ajax({
+                url: "/logout",
+                success: function(data){
+                    if (data["err"] === 0) {
+                        // alert("注销登录成功！");
+                        location.href = "/login";
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
 
 <!-- SPECIFIC SCRIPTS -->
 <!-- <script src="/static/js/video_header.js"></script>

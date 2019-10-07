@@ -1,0 +1,570 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>购物车结算</title>
+
+<style>
+html,body,div,p,form,label,ul,li,dl,dt,dd,ol,img,button,b,em,strong,small,h1,h2,h3,h4,h5,h6{margin:0;padding:0;border:0;list-style:none;font-style:normal;}
+body{font-family:SimHei,'Helvetica Neue',Arial,'Droid Sans',sans-serif;font-size:14px;color:#333;background:#f2f2f2;padding: 0;min-width: 300px; max-width: 640px; margin: 0 auto;}
+a, a.link{color:#666;text-decoration:none;font-weight:700;}
+a, a.link:hover{color:#666;}
+h1,h2,h3,h4,h5,h6{font-weight: normal;}
+.left-menu::-webkit-scrollbar {width: 0px;}
+.main{overflow:hidden;}
+.left-menu{width:25%;float:left;background-color:#eee;position:relative;overflow-y:scroll;height: 500px;}
+.left-menu ul li{line-height:60px;widows: 200%;;text-align:center;font-size:14px;padding:5px 0;color:#333;border-bottom:1px dashed #ddd;}  
+.left-menu ul li.active{color:#f34b3f !important;background-color:#fff;}  
+.right-con{display:none;width:75%;float:left;overflow-y:scroll;background:#fff;position:relative;height:500px;}
+.con .con-active{display:block;}
+.right-con li{position:relative;height:75px;border-bottom:1px solid #e7eaeb;border-top:1px solid #fff;padding-bottom:8px;margin-bottom:2px;}  
+.right-con li .menu-img{position:absolute;margin-left:10px;top:15px;border-radius:3px;cursor:pointer;}  
+.right-con li .menu-img img{height:55px;width:55px;vertical-align:middle;border:0;}  
+.right-con li .menu-txt{margin:15px 15px 15px 75px;}
+.right-con li .menu-txt h3{font-size:14px;margin-bottom:10px;margin-top:8px;} 
+.right-con li .menu-txt p{font-style:normal;line-height:20px;font-size:12px;vertical-align:bottom;}  
+.right-con li .menu-txt p.list2 b{font-size:14px;color:#f00;}  
+.right-con li .btn{background-color:transparent;position:absolute;right:0px;top:45%;cursor:pointer;padding:3px;height:38px;}  
+.right-con li .btn button.minus{margin-right:-10px;display:none;}  
+.right-con li .btn button{width:40px;height:40px;border:0;background:transparent;padding:0;}  
+.right-con li .btn button strong{padding:5px 10px;font-size:15px;display:inline-block;text-indent:-100px;padding:5px 11px;height:12px;}  
+.right-con li .btn button.minus strong{background:url(img/down.png) no-repeat;background-size:22px 22px;}  
+.right-con li .btn i{display:none;width:22px;text-align:center;font-style:normal;vertical-align:top;margin-top:11px;line-height:18px;}
+.right-con li .btn button.add{margin-left:-10px;}  
+.right-con li .btn button.add strong{background:url(img/up.png) no-repeat;background-size:22px 22px;}  
+.right-con li .btn .price{display:none;} 
+.footer{display:block;position:fixed;width:100%;z-index:3;bottom:0px;color:#f03c03;background:#fff;line-height:35px;font-size:15px;border-top:1px solid #e2e2e2;}  
+.footer .left{float:left;margin:5px 10px;}  
+.footer .right{float:right;}  
+.footer .right .disable{background:#dbdbdb;}  
+.footer .xhlbtn{display:block;text-align:center;line-height:45px;background-color:#F03C03;padding:0 15px;color:#fff;font-weight:bold;}  
+</style>
+</head>
+
+<body>
+<div class="main">
+	<div class="left-menu">
+		<ul>  
+           <li class="active">营养套餐<span class="num-price"></span></li>  
+           <li>酒水饮料</li>  
+           <li>酒水饮料</li>  
+           <li>酒水饮料</li> 
+		   <li>酒水饮料</li>  
+           <li>酒水饮料</li>  
+           <li>酒水饮料</li> 
+		   <li>酒水饮料</li>  
+           <li>酒水饮料</li>  
+           <li>酒水饮料</li> 
+		   <li>酒水饮料</li>  
+           <li>酒水饮料</li>  
+           <li>酒水饮料</li>  
+        </ul> 
+	</div>
+	<div class="con">
+		<div class="right-con con-active">
+			<ul>
+				<!-- <li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>{{ fname }}</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p>
+					</div>
+				</li> -->
+				<li>
+					{% for l in menus %}
+					<div class="menu-img"><img src="{{ l[4] }}" width="55" height="55"></div>
+					<div class="menu-txt">
+						<h4>{{ l[1] }}</h4>
+						<p class="list1">{{ l[3] }}</p>
+						<p class="list2">
+							<b>{{ l[2] }}</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p>
+					</div>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<!-- <form method="post" action="/order/shoppingcart" id="shoppingCartForm">
+		<div class="first-to-app clearfix j-first-to-app" style="top: -352px;">
+		  <span class="fl">电脑下单不享优惠了哦，优惠活动手机专享~</span>					  
+		</div>
+	 <div class="order-list" style="top: -307px;">
+	   <div class="title">
+		  <span class="fl buy-title">购物车</span>
+		 <span class="fr dishes"><a href=" " class="clear-cart"><i></i>清空菜品</a></span>
+	   </div>
+	   <ul style="height: auto; overflow: visible;"><li class="clearfix  food-1584156277_1804704374" data-fid="1584156277" data-fkey="1584156277_1804704374">  <div class="fl na clearfix" title="五香牛肉比萨(10英寸)">    <div class="">五香牛肉比萨(10英...</div>      </div>    <div class="fl modify clearfix">    < a href="javascript:;" class="fl minus">-</ a>    <input type="text" class="fl txt-count" value="1 " maxlength="2">    < a href="javascript:;" class="fl plus">+</ a>  </div>  <div class="fr pri ">    <span>¥68</span>  </div>  </li><li class="clearfix  food-1599273051_1821547035" data-fid="1599273051" data-fkey="1599273051_1821547035">  <div class="fl na clearfix" title="点击右上角☆得每周10元优惠券">    <div class="">点击右上角☆得每...</div>      </div>    <div class="fl modify clearfix">    < a href="javascript:;" class="fl minus">-</ a>    <input type="text" class="fl txt-count" value="3 " maxlength="2">    < a href="javascript:;" class="fl plus">+</ a>  </div>  <div class="fr pri ">    <span>¥0</span>  </div>  </li>
+	   </ul>
+	   <div class="other-charge">
+		 <div class="clearfix packing-cost">
+		   <span class="fl">包装费</span>
+		   <span class="fr boxtotalprice">¥2</span>
+		 </div>
+		 <div class="clearfix delivery-cost">
+			<span class="fl">配送费(不计入起送价)</span>
+			<span class="fr shippingfee">¥5</span>
+		</div>
+	</div>
+	<div class="privilege hidden"></div>
+	<div class="total">共<span class="totalnumber">4</span>份，总计<span class="bill">¥</span></div> -->
+	<!-- <span id="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow">0</span></span>元-->
+	<!-- <div class="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow">0</span></span>元</div> 
+	<div class="footer clearfix">
+		<div class="logo icon fl"></div>
+		<div class="brief-order fl">
+			<span class="count">4</span>
+			<span class="price"><i>¥</i>75</span>
+		</div>
+		<div class="fr">
+			<a class="ready-pay borderradius-2" href=" " style="display: none;">差<span data-left="30" class="margintominprice">0</span>元起送</ a>
+			<input class="go-pay borderradius-2" type="submit" value="立即下单" style="display: inline-block;">
+			<input type="hidden" value="{&quot;poi&quot;:&quot;144834944692270356&quot;,&quot;foods&quot;:[{&quot;sku&quot;:1821547035,&quot;attrs&quot;:[],&quot;num&quot;:3},{&quot;sku&quot;:1804704374,&quot;attrs&quot;:[],&quot;num&quot;:1}]}" class="order-data" name="shop_cart">
+		</div>
+	</div>
+	</form> -->
+				<!-- <li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>宫保鸡丁</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> -->
+							 <!-- <form method="post" action="/order/shoppingcart" id="shoppingCartForm">
+								<div class="first-to-app clearfix j-first-to-app" style="top: -352px;">
+								  <span class="fl">电脑下单不享优惠了哦，优惠活动手机专享~</span>					  
+								</div>
+							 <div class="order-list" style="top: -307px;">
+							   <div class="title">
+								  <span class="fl buy-title">购物车</span>
+								 <span class="fr dishes"><a href=" " class="clear-cart"><i></i>清空菜品</a></span>
+							   </div>
+							   <ul style="height: auto; overflow: visible;"><li class="clearfix  food-1584156277_1804704374" data-fid="1584156277" data-fkey="1584156277_1804704374">  <div class="fl na clearfix" title="五香牛肉比萨(10英寸)">    <div class="">五香牛肉比萨(10英...</div>      </div>    <div class="fl modify clearfix">    < a href="javascript:;" class="fl minus">-</ a>    <input type="text" class="fl txt-count" value="1 " maxlength="2">    < a href="javascript:;" class="fl plus">+</ a>  </div>  <div class="fr pri ">    <span>¥68</span>  </div>  </li><li class="clearfix  food-1599273051_1821547035" data-fid="1599273051" data-fkey="1599273051_1821547035">  <div class="fl na clearfix" title="点击右上角☆得每周10元优惠券">    <div class="">点击右上角☆得每...</div>      </div>    <div class="fl modify clearfix">    < a href="javascript:;" class="fl minus">-</ a>    <input type="text" class="fl txt-count" value="3 " maxlength="2">    < a href="javascript:;" class="fl plus">+</ a>  </div>  <div class="fr pri ">    <span>¥0</span>  </div>  </li>
+							   </ul>
+							   <div class="other-charge">
+								 <div class="clearfix packing-cost">
+								   <span class="fl">包装费</span>
+								   <span class="fr boxtotalprice">¥2</span>
+								 </div>
+								 <div class="clearfix delivery-cost">
+									<span class="fl">配送费(不计入起送价)</span>
+									<span class="fr shippingfee">¥5</span>
+								</div>
+							</div>
+							<div class="privilege hidden"></div>
+							<div class="total">共<span class="totalnumber">4</span>份，总计<span class="bill">¥75</span></div>
+							<div class="footer clearfix">
+								<div class="logo icon fl"></div>
+								<div class="brief-order fl">
+									<span class="count">4</span>
+									<span class="price"><i>¥</i>75</span>
+								</div>
+								<div class="fr">
+									<a class="ready-pay borderradius-2" href=" " style="display: none;">差<span data-left="30" class="margintominprice">0</span>元起送</ a>
+									<input class="go-pay borderradius-2" type="submit" value="立即下单" style="display: inline-block;">
+									<input type="hidden" value="{&quot;poi&quot;:&quot;144834944692270356&quot;,&quot;foods&quot;:[{&quot;sku&quot;:1821547035,&quot;attrs&quot;:[],&quot;num&quot;:3},{&quot;sku&quot;:1804704374,&quot;attrs&quot;:[],&quot;num&quot;:1}]}" class="order-data" name="shop_cart">
+								</div>
+							</div>
+							</form>  -->
+						<!-- </p>
+
+					</div>
+				</li>
+				<li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>宫保鸡丁</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="right-con">
+			<ul>
+				<li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>京酱肉丝</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p>
+					</div>
+				</li>
+				<li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>京酱肉丝</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="right-con">
+			<ul>
+				<li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>京酱肉丝</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p>
+					</div>
+				</li>
+				<li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>京酱肉丝</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="right-con">
+			<ul>
+				<li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>京酱肉丝</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p> -->
+					<!-- </div>
+				</li>
+				<li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>京酱肉丝</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="right-con">
+			<ul>
+				<li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>京酱肉丝</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p>
+					</div>
+				</li>
+				<li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>京酱肉丝</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="right-con">
+			<ul>
+				<li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>京酱肉丝</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p>
+					</div>
+				</li>
+				<li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>京酱肉丝</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="right-con">
+			<ul>
+				<li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>京酱肉丝</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p>
+					</div>
+				</li>
+				<li>
+					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-txt">
+						<h4>京酱肉丝</h4>
+						<p class="list1">家常菜</p>
+						<p class="list2">
+							<b>￥25</b>
+							<div class="btn">  
+								 <button class="minus">  
+									 <strong></strong>  
+								 </button>  
+								 <i>0</i>  
+								  <button class="add">  
+									 <strong></strong>  
+								 </button>  
+								 <i class="price">25</i>  
+							 </div> 
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div> -->
+
+	<div class="footer">  
+		<div class="left">已选商品：
+		<span id="cartN">
+			<span id="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow">0</span></span>元  
+		</div>  
+		<div class="left">  
+			<button type="button" id="btnselect" class="xhlbtn" href="javascript:void(0)" >结算</button>
+		</div>   
+	</div>
+</div>
+
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function () {  
+	//加的效果  
+	$(".add").click(function () {  
+		$(this).prevAll().css("display", "inline-block");  
+		var n = $(this).prev().text();  
+		var num = parseInt(n) + 1;  
+		if (num == 0) { return; }  
+		$(this).prev().text(num);  
+		var danjia = $(this).next().text();//获取单价  
+		var a = $("#totalpriceshow").html();//获取当前所选总价  
+		$("#totalpriceshow").html((a * 1 + danjia * 1).toFixed(2));//计算当前所选总价  
+		  
+		var nm = $("#totalcountshow").html();//获取数量  
+		$("#totalcountshow").html(nm*1+1);  
+		jss();//<span style='font-family: Arial, Helvetica, sans-serif;'></span>   改变按钮样式
+	});  
+	//减的效果  
+	$(".minus").click(function () {  
+		var n = $(this).next().text();  
+		var num = parseInt(n) - 1;  
+
+		$(this).next().text(num);//减1  
+
+		var danjia = $(this).nextAll(".price").text();//获取单价  
+		var a = $("#totalpriceshow").html();//获取当前所选总价  
+		$("#totalpriceshow").html((a * 1 - danjia * 1).toFixed(2));//计算当前所选总价  
+		 
+		var nm = $("#totalcountshow").html();//获取数量  
+		$("#totalcountshow").html(nm * 1 - 1);  
+		//如果数量小于或等于0则隐藏减号和数量  
+		if (num <= 0) {  
+			$(this).next().css("display", "none");  
+			$(this).css("display", "none");  
+			jss();//改变按钮样式  
+			 return  
+		}  
+	});  
+	function jss() {  
+		var m = $("#totalcountshow").html();  
+		if (m > 0) {  
+			$(".right").find("a").removeClass("disable");  
+		} else {  
+		   $(".right").find("a").addClass("disable");  
+		}  
+	};
+	//选项卡
+	$(".con>div").hide();
+	$(".con>div:eq(0)").show();	
+	
+	$(".left-menu li").click(function(){
+		$(this).addClass("active").siblings().removeClass("active");
+		var n = $(".left-menu li").index(this);
+		$(".left-menu li").index(this);
+		$(".con>div").hide();
+		$(".con>div:eq("+n+")").show();	
+	});
+});  
+</script>
+</body>
+</html>
+

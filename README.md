@@ -46,9 +46,35 @@
 
 
 
-数据库
+数据库设计：
 
-1.用户信息表
+数据库：speed
 
-2.商家信息表
+用户：chun
+
+表：
+
+1.用户信息表user：
+
+用户ID（主键，大于1000），用户名（uname，不能重复），密码（upass），手机号（phone），邮箱（email），注册时间(reg_time), 用户状态(state, 0表示已删除，1表示正常，2表示冻结，3表示异常), 最近登录时间(last_login_time), 权限(priv, 1表示为普通用户，2表示为后台管理员)
+
+2.商家信息表ruser
+
+餐厅的名字(rname)，餐厅说明(rinfor)，电话(rphone)，邮箱(rmail)，地址(raddress)，图片(rpicture)
+
+3.菜单表
+
+菜单名(fname)，价格(fprice), 描述(finfor), 图片(picture)
+
+{{ fname }}
+
+
+
+部署上线建议，nginx+uwsgi或gunicorn+nginx
+
+nginx配置负载均衡
+
+
+
+
 

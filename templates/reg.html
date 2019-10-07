@@ -3,49 +3,37 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>欢迎注册！</title>
-
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-            }
-
-            input {
-                margin-right: 5px;
-                height: 30px;
-                padding: 0 5px;
-            }
-
-            button {
-                height: 30px;
-                padding: 0 5px;
-            }
-
-            #reg_form {
-                margin: 50px auto;
-                width: 600px;
-            }
-
-            #reg_form td {
-               padding-top: 10px;
-            }
-        </style>
-        <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+        <title>注册</title>
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,300,300italic' rel='stylesheet' type='text/css'>
+        <link href="/static/css/base.css" rel="stylesheet">
+        
+        <script src="{{ url_for('static', filename='js/modernizr.js) }}"></script> 
+        <script src="{{ url_for('static', filename='js/jquery-2.2.4.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/common_scripts_min.js') }}"></script>
     </head>
     <body>
-        <div id="reg_form">
-            <form action="/reg" method="POST">
-                <table>
-                    <tr><td>用户名：</td><td><input type="text" id="uname" name="uname" placeholder="用户名" autofocus><span id="uname_tips"></span></td></tr>
-                    <tr><td>密码：</td><td><input type="password" id="upass" name="upass" placeholder="登录密码"></td></tr>
-                    <tr><td>确认密码：</td><td><input type="password" id="upass2" name="upass2" placeholder="确认密码"></td></tr>
-                    <tr><td>手机号：</td><td><input type="text" id="phone" name="phone" placeholder="手机号"></td></tr>
-                    <tr><td>邮箱：</td><td><input type="email" id="email" name="email" placeholder="电子邮箱""></td></tr>
-                    <tr><td></td><td><button type="submit">注册</button></td></tr>
-                </table>
-            </form>
-        </div>
+        <div class="modal fade" id="reg_form" tabindex="-1" role="dialog" aria-labelledby="myRegister" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content modal-popup">
+                        <a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
+                        <form action="/reg" class="popup-form" id="myRegister" method="POST">
+                            <div class="login_icon"><i class="icon_lock_alt"></i></div>
+                            <tr><td>用户名：</td><td><input type="text" id="uname" name="uname" placeholder="用户名" autofocus><span id="uname_tips"></span></td></tr><br>
+                            <tr><td>密码：</td><td><input type="password" id="upass" name="upass" placeholder="登录密码"></td></tr><br>
+                            <tr><td>确认密码：</td><td><input type="password" id="upass2" name="upass2" placeholder="确认密码"></td></tr><br>
+                            <tr><td>手机号：</td><td><input type="text" id="phone" name="phone" placeholder="手机号"></td></tr><br>
+                            <tr><td>邮箱：</td><td><input type="email" id="email" name="email" placeholder="电子邮箱"></td></tr><br>
+                            <div id="pass-info" class="clearfix"></div>
+                            <div class="checkbox-holder text-left">
+                                <div class="checkbox">
+                                    <input type="checkbox" value="accept_2" id="check_2" name="check_2" >
+                                    <label for="check_2"><span>我同意的条款和条件</span>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-submit">注册</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
     </body>
 </html>

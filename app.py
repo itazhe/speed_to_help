@@ -61,7 +61,7 @@ def reg_handle():
         except:
             abort(Response("用户注册失败！"))
 
-        session.pop(phone)
+        # session.pop(phone)
         # 注册成功就跳转到登录页面
         return redirect(url_for("login_handle"))
 
@@ -80,7 +80,7 @@ def logout_handle():
 @app.route("/login", methods=["GET", "POST"])
 def login_handle():
     if request.method == "GET":
-        return render_template("login.html")
+        return render_template("index.html")
     elif request.method == "POST":
         uname = request.form.get("uname")
         upass = request.form.get("upass")
@@ -103,7 +103,31 @@ def login_handle():
         cur.close()
               
         if res:
-            return redirect(url_for("reg_handle"))
+            # 登录成功就跳转到用户个人中心
+            cur_login_time = datetime.datetime.now()
+
+            session["user_info"] = {
+                "uid": res[0],
+                "uname": res[1],
+                "upass": res[2],
+                "phone": res[3],
+                "email": res[4],
+                "reg_time": res[5],
+                "last_login_time": res[6],
+                "priv": res[7],
+                "state": res[8],
+                "cur_login_time": cur_login_time
+            }
+
+            try:
+                cur = conn.cursor()
+                cur.execute("UPDATE user SET last_login_time=%s WHERE uid=%s", (cur_login_time, res[0]))
+                cur.close()
+                conn.commit()
+            except Exception as e:
+                print(e)
+
+            return redirect(url_for("user_center"))
         else:
             # 登录失败
             return render_template("index.html", login_fail=1)
@@ -127,6 +151,48 @@ def check_uname():
 
     return jsonify(res)
 
+
+@app.route("/login_success", methods=["GET", "POST"])
+def login_success():
+    # if request.method == "GET":
+    return render_template("index2.html")
+    # elif request.method == "POST":
+
+
+@app.route("/user_center")
+def user_center():
+    user_info = session.get("user_info")
+
+    if user_info:
+        return render_template("index2.html", uname=user_info.get("uname"))
+    else:
+        return redirect(url_for("login_handle"))
+
+
+@app.route("/menu", methods=["GET", "POST"])
+def menu_handle():
+    if request.method == "GET":
+        cur = conn.cursor()
+        cur.execute("SELECT * from menu")
+        rows = cur.fetchall()
+        cur.close()        
+        rows = list(rows)
+        # 替换
+        m = 0 
+        while m < len(rows):
+            rows[m] = list(rows[m])
+            m += 1
+        print(rows)
+        for i in rows:
+            n = i[-1].replace("/", "\\")
+            i[-1] = n
+        print(rows)
+        return render_template("goods.html", menus=rows)
+
+@app.route("/admin", methods=["GET", "POST"])
+def admin_handle():
+    if request.method == "GET":
+        return render_template("admin.html")    
 
 
 if __name__ == "__main__":

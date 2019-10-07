@@ -31,7 +31,7 @@ CREATE TABLE speed.menu (
 
 -- 测试
 -- INSERT INTO menu values (DEFAULT, "哈密瓜", "23.5", "一款赞不绝口的蛋糕", "static/img/image/1.jpg");
--- INSERT INTO menu values (DEFAULT, "西瓜", "23.5", "一款好吃的的蛋糕", "static/img/image/2.jpg");
+-- INSERT INTO menu values (DEFAULT, "西瓜", "20.0", "一款好吃的的蛋糕", "static/img/image/2.jpg");
 
 -- CREATE USER 'azhe'@'127.0.0.1' IDENTIFIED BY '123456';
 -- GRANT ALL ON mydb.* to 'dj'@'127.0.0.1';

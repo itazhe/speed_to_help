@@ -189,10 +189,16 @@ def menu_handle():
         print(rows)
         return render_template("goods.html", menus=rows)
 
+# 有问题
 @app.route("/admin", methods=["GET", "POST"])
 def admin_handle():
     if request.method == "GET":
         return render_template("admin.html")    
+
+
+@app.route("/list")
+def list_page():
+    return render_template("map_listing.html")
 
 
 if __name__ == "__main__":

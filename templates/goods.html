@@ -30,10 +30,11 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 .right-con li .btn button.minus{margin-right:-10px;display:none;}  
 .right-con li .btn button{width:40px;height:40px;border:0;background:transparent;padding:0;}  
 .right-con li .btn button strong{padding:5px 10px;font-size:15px;display:inline-block;text-indent:-100px;padding:5px 11px;height:12px;}  
-.right-con li .btn button.minus strong{background:url(img/down.png) no-repeat;background-size:22px 22px;}  
+/* 加减按钮图标路径 */
+.right-con li .btn button.minus strong{background:url(static/img/down.png) no-repeat;background-size:22px 22px;}  
 .right-con li .btn i{display:none;width:22px;text-align:center;font-style:normal;vertical-align:top;margin-top:11px;line-height:18px;}
 .right-con li .btn button.add{margin-left:-10px;}  
-.right-con li .btn button.add strong{background:url(img/up.png) no-repeat;background-size:22px 22px;}  
+.right-con li .btn button.add strong{background:url(static/img/up.png) no-repeat;background-size:22px 22px;}  
 .right-con li .btn .price{display:none;} 
 .footer{display:block;position:fixed;width:100%;z-index:3;bottom:0px;color:#f03c03;background:#fff;line-height:35px;font-size:15px;border-top:1px solid #e2e2e2;}  
 .footer .left{float:left;margin:5px 10px;}  
@@ -85,14 +86,15 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 						</p>
 					</div>
 				</li> -->
+				{% for l in menus %}
 				<li>
-					{% for l in menus %}
 					<div class="menu-img"><img src="{{ l[4] }}" width="55" height="55"></div>
 					<div class="menu-txt">
 						<h4>{{ l[1] }}</h4>
 						<p class="list1">{{ l[3] }}</p>
 						<p class="list2">
 							<b>{{ l[2] }}</b>
+							<!-- <b class="price">{{ l[2] }}</b> -->
 							<div class="btn">  
 								 <button class="minus">  
 									 <strong></strong>  
@@ -101,7 +103,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 								  <button class="add">  
 									 <strong></strong>  
 								 </button>  
-								 <i class="price">25</i>  
+								 <i class="price">{{ l[2] }}</i>  
 							 </div> 
 						</p>
 					</div>
@@ -132,9 +134,9 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 		</div>
 	</div>
 	<div class="privilege hidden"></div>
-	<div class="total">共<span class="totalnumber">4</span>份，总计<span class="bill">¥</span></div> -->
-	<!-- <span id="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow">0</span></span>元-->
-	<!-- <div class="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow">0</span></span>元</div> 
+	<div class="total">共<span class="totalnumber">4</span>份，总计<span class="bill">¥</span></div>
+	<span id="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow">0</span></span>元
+	<div class="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow">0</span></span>元</div>
 	<div class="footer clearfix">
 		<div class="logo icon fl"></div>
 		<div class="brief-order fl">
@@ -505,7 +507,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 </div>
 
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="static/js/jquery.min.js"></script>
 <script type="text/javascript">
 $(function () {  
 	//加的效果  
@@ -516,6 +518,7 @@ $(function () {
 		if (num == 0) { return; }  
 		$(this).prev().text(num);  
 		var danjia = $(this).next().text();//获取单价  
+		// var danjia = 20;//获取单价 
 		var a = $("#totalpriceshow").html();//获取当前所选总价  
 		$("#totalpriceshow").html((a * 1 + danjia * 1).toFixed(2));//计算当前所选总价  
 		  
@@ -531,6 +534,7 @@ $(function () {
 		$(this).next().text(num);//减1  
 
 		var danjia = $(this).nextAll(".price").text();//获取单价  
+		// var danjia = 20;//获取单价  
 		var a = $("#totalpriceshow").html();//获取当前所选总价  
 		$("#totalpriceshow").html((a * 1 - danjia * 1).toFixed(2));//计算当前所选总价  
 		 

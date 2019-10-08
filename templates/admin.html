@@ -9,7 +9,7 @@
 	<meta name="keywords" content="pizza, delivery food, fast food, sushi, take away, chinese, italian food">
 	<meta name="description" content="">
 	<meta name="author" content="Ansonika">
-	<title>优质支付或外卖食品</title>
+	<title>极速帮商家管理</title>
 
 	<!-- Favicons-->
 	<link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
@@ -34,7 +34,15 @@
 	<!--[if lt IE 9]>
       <script src="js/html5shiv.min.js"></script>
       <script src="js/respond.min.js"></script>
-    <![endif]-->
+	<![endif]-->
+	<!-- <script>
+		window.onload = function(){
+			document.getElementById("submit_file").onclick = function(){
+				document.forms[0].submit();
+			};
+		};
+	</script>
+	 -->
 
 </head>
 
@@ -55,7 +63,7 @@
 	<!-- End Preload -->
 
 	<!-- Header ================================================== -->
-	<header>
+	<!-- <header>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col--md-4 col-sm-4 col-xs-4">
@@ -71,7 +79,7 @@
 							<img src="/static/img/logo.png" width="190" height="23" alt="" data-retina="true">
 						</div>
 						<a href="#" class="open_close" id="close_in"><i class="icon_close"></i></a>
-						<ul>
+						<ul> -->
                     <!-- <li class="submenu">
                     <a href="javascript:void(0);" class="show-submenu">家<i class="icon-down-open-mini"></i></a>
                     <ul>
@@ -87,7 +95,7 @@
                     </li> -->
                     <!-- <li class="submenu"> -->
 					<!-- <a href="javascript:void(0);" class="show-submenu">Restaurants<i class="icon-down-open-mini"></i></a> -->
-					<li><a href="admin.html">商家</a></li>
+					<!-- <li><a href="admin.html">商家</a></li> -->
                     <!-- <ul>
                         <li><a href="list_page.html">Row listing</a></li>
                         <li><a href="grid_list.html">Grid listing</a></li>
@@ -121,27 +129,31 @@
                     <!-- </li> -->
                     <!-- <li><a href="#0" data-toggle="modal" data-target="#login_2">登录</a></li> -->
                     <!-- <li><a href="#0">Purchase this template</a></li> -->
-                </ul>
-					</div><!-- End main-menu -->
-				</nav>
-			</div><!-- End row -->
-		</div><!-- End container -->
-	</header>
+                <!-- </ul> -->
+					<!-- </div> -->
+					<!-- End main-menu -->
+				<!-- </nav> -->
+			<!-- </div> -->
+			<!-- End row -->
+		<!-- </div> -->
+		<!-- End container -->
+	<!-- </header> -->
 	<!-- End Header =============================================== -->
 
 	<!-- SubHeader =============================================== -->
 	<section class="parallax-window" id="short" data-parallax="scroll" data-image-src="img/sub_header_cart.jpg" data-natural-width="1400" data-natural-height="350">
 		<div id="subheader">
 			<div id="sub_content">
-				<h1>管理部分</h1>
+				<h1>商家后台</h1>
 				<!-- <p>谁是在出了更好的债务，它带走你授予这些债务是三段论。</p> -->
-				<!-- <p></p> -->
-			</div><!-- End sub_content -->
-		</div><!-- End subheader -->
-	</section><!-- End section -->
+				<p></p>
+			</div>
+		</div>
+		<!-- End subheader--> 
+	</section>
 	<!-- End SubHeader ============================================ -->
 
-	<div id="position">
+	<!-- <div id="position">
 		<div class="container">
 			<ul>
 				<li><a href="#0">家</a>
@@ -152,10 +164,10 @@
 			</ul>
 			<a href="#0" class="search-overlay-menu-btn"><i class="icon-search-6"></i> 搜索</a>
 		</div>
-	</div><!-- Position -->
+	</div>Position -->
 
 	<!-- Content ================================================== -->
-	<div class="container margin_60">
+	<!-- <div class="container margin_60">
 		<div id="tabs" class="tabs">
 			<nav>
 				<ul>
@@ -198,8 +210,8 @@
 								</div>
 							</div>
 						</div>
-					</div><!-- End wrapper_indent -->
-
+					</div>End wrapper_indent -->
+<!-- 
 					<hr class="styled_2">
 
 					<div class="indent_title_in">
@@ -230,7 +242,7 @@
 									<label>具体地址</label>
 									<input type="text" id="city_booking" name="city_booking" class="form-control">
 								</div>
-							</div>
+							</div> -->
 							<!-- <div class="col-md-3">
 								<div class="form-group">
 									<label>State</label>
@@ -243,10 +255,12 @@
 									<input type="text" id="postal_code" name="postal_code" class="form-control">
 								</div>
 							</div> -->
-						</div><!--End row -->
-					</div><!-- End wrapper_indent -->
+						<!-- </div> -->
+						<!--End row -->
+					<!-- </div> -->
+					<!-- End wrapper_indent -->
 
-					<hr class="styled_2">
+					<!-- <hr class="styled_2">
 					<div class="indent_title_in">
 						<i class="icon_images"></i>
 						<h3>标志和餐厅照片</h3>
@@ -270,14 +284,14 @@
 								</div>
 							</div>
 						</div>
-					</div><!-- End wrapper_indent -->
-                    
+					</div> End wrapper_indent -->
+<!--                     
 					<hr class="styled_2">
 					<div class="wrapper_indent">
 						<button class="btn_1">现在保存</button>
-					</div><!-- End wrapper_indent -->
+					</div>End wrapper_indent ->
                     
-				</section><!-- End section 1 -->
+				</section>End section 1 -->
 
 				<section id="section-2">
 					<div class="indent_title_in">
@@ -291,42 +305,68 @@
 							<input type="text" name="menu_category" class="form-control" placeholder="EX. Starters">
 						</div> -->
 
-						<div class="menu-item-section clearfix">
+						<!-- <div class="menu-item-section clearfix">
 							<h4>菜单项</h4>
 							<div><a href="#0"><i class="icon_plus_alt"></i></a><a href="#0"><i class="icon_minus_alt"></i></a>
 							</div>
-						</div>
+						</div> -->
 
-						<div class="strip_menu_items">
-							<div class="row">
-								<div class="col-sm-3">
-									<div class="menu-item-pic dropzone">
-										<input name="file" type="file">
-										<div class="dz-default dz-message"><span>点击或删除<br>图片在这里</span>
+
+
+						<form method="POST" action="/admin" enctype="multipart/form-data">
+							<!-- <a href="/file_upload">图片上传</a> -->
+
+							<input type="file" name="azhe">&nbsp;
+				            <!-- <a href="javascript:void(0);" id="submit_file">上传</a> -->
+
+							<!-- <div class="strip_menu_items">
+								<div class="row">
+									<div class="col-sm-3">
+										<div class="menu-item-pic dropzone">
+											<input name="azhe" type="file">
+											<div class="dz-default dz-message"><span>点击或删除<br>图片在这里</span>
+											</div>
 										</div>
-									</div>
-								</div>
-								<div class="col-sm-9">
-									<div class="row">
+									</div> -->
+									<!--  -->
+
+
+
+
+
+
+									<div class="col-sm-9">
 										<div class="col-md-8">
 											<div class="form-group">
 												<label>菜名</label>
 												<input type="text"  name="menu_item_title" class="form-control">
 											</div>
 										</div>
-										<div class="col-md-4">
+										<div class="col-md-8">
 											<div class="form-group">
 												<label>价格</label>
 												<input type="text" name="menu_item_title_price" class="form-control">
 											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label>简短描述</label>
-										<input type="text" name="menu_item_description" class="form-control">
-									</div>
+										<div class="col-md-8">
+											<div class="form-group">
+												<label>简短描述</label>
+												<input type="text" name="menu_item_description" class="form-control">
+											</div>
+										</div>
+										
+										<hr class="styled_2">
 
-									<div class="form-group">
+										<div class="wrapper_indent">
+											<button type="submit" class="btn_1">提交</button>
+											<!-- <a href="javascript:void(0);" id="submit_file">上传</a> -->
+										</div>
+									</div>
+								</div>	
+							</div>
+						</form>
+
+									<!-- <div class="form-group">
 										<label>此外选项</label>
 										<div class="table-responsive">
 											<table class="table table-striped edit-options">
@@ -362,7 +402,7 @@
 												</tbody>
 											</table>
 										</div>
-									</div>
+									</div> -->
 
 									<!-- <div class="form-group">
 										<label>Item ingredients</label>
@@ -399,13 +439,20 @@
 												</tr>
 											</tbody>
 										</table>
-                                        </div>
-									</div>< End form-group -->
-								<!-- </div>
+                                        </div> -->
+									<!-- </div> -->
+									<!-- End form-group -->
+								<!-- </div>-->
 							</div>
-						</div> -->
+						</div>
 
 
+						<!-- <h1>文件上传</h1>
+						<hr>
+						<form method="POST" action="/file_upload" enctype="multipart/form-data">
+							<input type="file" name="file">&nbsp;
+							<a href="javascript:void(0);" id="submit_file">上传</a>
+						</form> -->
 
 						<!-- <div class="menu-item-section clearfix">
 							<h4>Menu item #2</h4>
@@ -645,14 +692,14 @@
 						</div>
 					</div> -->
                     
-					<hr class="styled_2">
+					<!-- <hr class="styled_2"> -->
                     
-					<div class="wrapper_indent">
+					<!-- <div class="wrapper_indent">
 						<div class="add_more_cat"><a href="#0" class="btn_1">现在保存</a></div>
-						<!-- <div class="add_more_cat"><a href="#0" class="btn_1">现在保存</a> <a href="#0" class="btn_1">Add menu category</a> </div> -->
-					</div><!-- End wrapper_indent -->
+						 <div class="add_more_cat"><a href="#0" class="btn_1">现在保存</a> <a href="#0" class="btn_1">Add menu category</a> </div> ->
+					</div> End wrapper_indent -->
                     
-				</section>
+				<!-- </section>
 
 				<section id="section-3">
 
@@ -677,10 +724,10 @@
 									<input class="form-control" name="confirm_new_password" id="confirm_new_password" type="password">
 								</div>
 								<button type="submit" class="btn_1 green">更新密码</button>
-							</div><!-- End wrapper_indent -->
-						</div>
+							</div> End wrapper_indent -->
+						<!-- </div> -->
                         
-						<div class="col-md-6 col-sm-6 add_bottom_15">
+						<!-- <div class="col-md-6 col-sm-6 add_bottom_15">
 							<div class="indent_title_in">
 								<i class="icon_mail_alt"></i>
 								<h3>更改电子邮件</h3>
@@ -699,10 +746,11 @@
 									<input class="form-control" name="confirm_new_email" id="confirm_new_email" type="email">
 								</div>
 								<button type="submit" class="btn_1 green">更新电子邮件</button>
-							</div><!-- End wrapper_indent -->
-						</div>
+							</div> End wrapper_indent -->
+						<!-- </div> -->
                         
-					</div><!-- End row -->
+					<!-- </div> -->
+					<!-- End row ->
 
 					<hr class="styled_2">
                     
@@ -787,11 +835,11 @@
 	</div>
 	
 
-	<div class="layer"></div>
+	<div class="layer"></div> --> 
 	<!-- Mobile menu overlay mask -->
 
 	<!-- Login modal -->
-	<div class="modal fade" id="login_2" tabindex="-1" role="dialog" aria-labelledby="myLogin" aria-hidden="true">
+	<!-- <div class="modal fade" id="login_2" tabindex="-1" role="dialog" aria-labelledby="myLogin" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content modal-popup">
 				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
@@ -808,9 +856,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- End modal -->
+	 End modal -->
 
-	<!-- Register modal -->
+	<!-- Register modal ->
 	<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myRegister" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content modal-popup">
@@ -834,10 +882,10 @@
 				</form>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- End Register modal -->
 
-	<!-- Search Menu -->
+	<!-- Search Menu ->
 	<div class="search-overlay-menu">
 		<span class="search-overlay-close"><i class="icon_close"></i></span>
 		<form role="search" id="searchform" method="get">
@@ -845,7 +893,7 @@
 			<button type="submit"><i class="icon-search-6"></i>
 			</button>
 		</form>
-	</div>
+	</div> -->
 	<!-- End Search Menu -->
 
 	<!-- COMMON SCRIPTS -->
@@ -890,3 +938,4 @@
 </body>
 
 </html>
+

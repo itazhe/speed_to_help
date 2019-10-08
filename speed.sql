@@ -19,7 +19,7 @@ CREATE TABLE speed.user (
 -- 内置管理员账户
 INSERT INTO user values (DEFAULT, 'root', md5('234567890'), '13476491560', 'az@azhe.net.cn', now(), now(), 2, 1);
 
--- 菜单表
+-- 菜单表-进店必买
 CREATE TABLE speed.menu (
     uid int unsigned AUTO_INCREMENT,
 	fname VARCHAR(20) NOT NULL UNIQUE,
@@ -32,6 +32,21 @@ CREATE TABLE speed.menu (
 -- 测试
 -- INSERT INTO menu values (DEFAULT, "哈密瓜", "23.5", "一款赞不绝口的蛋糕", "static/img/image/1.jpg");
 -- INSERT INTO menu values (DEFAULT, "西瓜", "20.0", "一款好吃的的蛋糕", "static/img/image/2.jpg");
+
+-- 菜单表-特色小吃
+CREATE TABLE speed.menu2 (
+    uid int unsigned AUTO_INCREMENT,
+	fname VARCHAR(20) NOT NULL UNIQUE,
+	fprice VARCHAR(50) NOT NULL,
+    finfor VARCHAR(255) NOT NULL,
+    picture VARCHAR(255) NOT NULL,
+    PRIMARY KEY (uid)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8;
+
+-- 测试
+-- INSERT INTO menu2 values (DEFAULT, "凉皮", "6.0", "好吃", "static/img/image/3.jpg");
+-- INSERT INTO menu2 values (DEFAULT, "肉夹馍", "8.5", "美味", "static/img/image/4.jpg");
+
 
 -- CREATE USER 'azhe'@'127.0.0.1' IDENTIFIED BY '123456';
 -- GRANT ALL ON mydb.* to 'dj'@'127.0.0.1';

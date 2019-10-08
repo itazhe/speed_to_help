@@ -4,6 +4,7 @@
 import datetime, re, os, random, json, urllib.parse, urllib.request
 from flask import Flask, render_template, request, jsonify, session, abort, redirect, url_for, Response
 import pymysql
+import flask
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -174,8 +175,15 @@ def menu_handle():
     if request.method == "GET":
         cur = conn.cursor()
         cur.execute("SELECT * from menu")
-        rows = cur.fetchall()
-        cur.close()        
+        rows = cur.fetchall()   
+
+        cur2 = conn.cursor()
+        cur2.execute("SELECT * from menu2")
+        rows2 = cur2.fetchall()
+        # cur.close()   
+        # cur2.close()
+
+        # 进店必买
         rows = list(rows)
         # 替换
         m = 0 
@@ -187,18 +195,80 @@ def menu_handle():
             n = i[-1].replace("/", "\\")
             i[-1] = n
         print(rows)
-        return render_template("goods.html", menus=rows)
 
-# 有问题
+        # 特色小吃
+        rows2 = list(rows2)
+        # 替换
+        m = 0 
+        while m < len(rows2):
+            rows2[m] = list(rows2[m])
+            m += 1
+        print(rows2)
+        for i in rows2:
+            n = i[-1].replace("/", "\\")
+            i[-1] = n
+        print(rows2)
+
+        return render_template("goods.html", menus=rows, menus2=rows2)
+
+
+
+app.config["UPLOAD_FOLDER"] = r"static\img\image"
+
+# basedir = os.path.abspath(os.path.dirname(__file__))
+
+
 @app.route("/admin", methods=["GET", "POST"])
 def admin_handle():
     if request.method == "GET":
         return render_template("admin.html")    
+    elif request.method == "POST":
+        menu_item_title = request.form.get("menu_item_title")
+        menu_item_title_price = request.form.get("menu_item_title_price")  
+        menu_item_description = request.form.get("menu_item_description")
+
+        print(menu_item_title, menu_item_title_price, menu_item_description)
+        
+        # 获取照片
+        uploaded_file = flask.request.files["azhe"]
+        file_name = uploaded_file.filename
+        file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+        print(file_path)
+        uploaded_file.save(file_path)
+
+        s = ""
+        for i in file_path:
+            n = i.replace("\\", "/")
+            s += n
+        # print(s)
+        file_path = s
+        
+        try:
+            cur = conn.cursor()
+            cur.execute("INSERT INTO menu VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
+            cur.close()
+            conn.commit()
+        except:
+            abort(Response("菜品信息失败！"))
+               
+        return render_template("admin.html")
 
 
+
+
+
+
+# 有问题
 @app.route("/list")
 def list_page():
     return render_template("map_listing.html")
+
+
+@app.route("/cart", methods=["GET", "POST"])
+def cart_handle():
+    if request.method == "GET":
+        return render_template("cart.html")
+
 
 
 if __name__ == "__main__":

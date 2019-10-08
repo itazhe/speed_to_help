@@ -48,44 +48,24 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 <div class="main">
 	<div class="left-menu">
 		<ul>  
-           <li class="active">营养套餐<span class="num-price"></span></li>  
+           <li class="active">进店必买<span class="num-price"></span></li>  
+           <li>特色小吃</li>  
            <li>酒水饮料</li>  
-           <li>酒水饮料</li>  
+           <li>酒水饮料</li> 
+		   <li>酒水饮料</li>  
+           <!-- <li>酒水饮料</li>  
            <li>酒水饮料</li> 
 		   <li>酒水饮料</li>  
            <li>酒水饮料</li>  
            <li>酒水饮料</li> 
 		   <li>酒水饮料</li>  
            <li>酒水饮料</li>  
-           <li>酒水饮料</li> 
-		   <li>酒水饮料</li>  
-           <li>酒水饮料</li>  
-           <li>酒水饮料</li>  
+           <li>酒水饮料</li>   -->
         </ul> 
 	</div>
 	<div class="con">
 		<div class="right-con con-active">
 			<ul>
-				<!-- <li>
-					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>{{ fname }}</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">  
-								 <button class="minus">  
-									 <strong></strong>  
-								 </button>  
-								 <i>0</i>  
-								  <button class="add">  
-									 <strong></strong>  
-								 </button>  
-								 <i class="price">25</i>  
-							 </div> 
-						</p>
-					</div>
-				</li> -->
 				{% for l in menus %}
 				<li>
 					<div class="menu-img"><img src="{{ l[4] }}" width="55" height="55"></div>
@@ -111,7 +91,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 				{% endfor %}
 			</ul>
 		</div>
-	</div>
+	
 	<!-- <form method="post" action="/order/shoppingcart" id="shoppingCartForm">
 		<div class="first-to-app clearfix j-first-to-app" style="top: -352px;">
 		  <span class="fl">电脑下单不享优惠了哦，优惠活动手机专享~</span>					  
@@ -228,30 +208,36 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 					</div>
 				</li>
 			</ul>
-		</div>
+		</div>-->
 		<div class="right-con">
 			<ul>
+				{% for l in menus2 %}
 				<li>
-					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
+					<div class="menu-img"><img src="{{ l[4] }}" width="55" height="55"></div>
 					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
+						<h4>{{ l[1] }}</h4>
+						<p class="list1">{{ l[3] }}</p>
 						<p class="list2">
-							<b>￥25</b>
+							<b>{{ l[2] }}</b>
+							<!-- <b class="price">{{ l[2] }}</b>  -->
 							<div class="btn">  
-								 <button class="minus">  
-									 <strong></strong>  
-								 </button>  
-								 <i>0</i>  
-								  <button class="add">  
-									 <strong></strong>  
-								 </button>  
-								 <i class="price">25</i>  
-							 </div> 
-						</p>
-					</div>
-				</li>
-				<li>
+								<button class="minus">  
+									<strong></strong>  
+								</button>  
+								<i>0</i>  
+								 <button class="add">  
+									<strong></strong>  
+								</button>  
+								<i class="price">{{ l[2] }}</i>  
+							</div> 
+					    </p>
+				    </div>
+			    </li>
+			    {% endfor %}
+			</ul>
+		</div>
+	</div>	
+				<!-- <li>
 					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
 					<div class="menu-txt">
 						<h4>京酱肉丝</h4>
@@ -336,7 +322,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 								 </button>  
 								 <i class="price">25</i>  
 							 </div> 
-						</p> -->
+						</p>  -->
 					<!-- </div>
 				</li>
 				<li>
@@ -495,15 +481,18 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 		</div>
 	</div> -->
 
-	<div class="footer">  
-		<div class="left">已选商品：
-		<span id="cartN">
-			<span id="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow">0</span></span>元  
-		</div>  
-		<div class="left">  
-			<button type="button" id="btnselect" class="xhlbtn" href="javascript:void(0)" >结算</button>
-		</div>   
-	</div>
+	<form>
+		<div class="footer">  
+			<div class="left">已选商品：
+			<span id="cartN">
+				<span id="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow">0</span></span>元  
+			</div>  
+			<div class="left">  
+				<!-- <button type="button" id="btnselect" class="xhlbtn" href="javascript:void(0)" >结算</button> -->
+				<a href="/cart"><button type="button" id="btnselect" class="xhlbtn">结算</button></a>
+			</div>   
+		</div>
+	</form>
 </div>
 
 

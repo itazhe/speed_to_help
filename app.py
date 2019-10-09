@@ -120,6 +120,8 @@ def login_handle():
                 "cur_login_time": cur_login_time
             }
 
+            print(session["user_info"]["priv"])
+
             try:
                 cur = conn.cursor()
                 cur.execute("UPDATE user SET last_login_time=%s WHERE uid=%s", (cur_login_time, res[0]))
@@ -127,7 +129,6 @@ def login_handle():
                 conn.commit()
             except Exception as e:
                 print(e)
-
             return redirect(url_for("user_center"))
         else:
             # 登录失败
@@ -163,11 +164,16 @@ def login_success():
 @app.route("/user_center")
 def user_center():
     user_info = session.get("user_info")
+    
+    if user_info.get("priv") == "2":
+        print(user_info.get("priv"))
+        return render_template("index2.html", uname=user_info.get("uname"))
 
     if user_info:
-        return render_template("index2.html", uname=user_info.get("uname"))
+        return render_template("index4.html", uname=user_info.get("uname"))
     else:
-        return redirect(url_for("login_handle"))
+        # return redirect(url_for("login_handle"))
+        abort(Response("登录失败！"))
 
 
 @app.route("/menu", methods=["GET", "POST"])
@@ -254,20 +260,18 @@ def admin_handle():
         return render_template("admin.html")
 
 
-
-
-
-
-# 有问题
-@app.route("/list")
-def list_page():
-    return render_template("map_listing.html")
-
-
 @app.route("/cart", methods=["GET", "POST"])
 def cart_handle():
     if request.method == "GET":
         return render_template("cart.html")
+
+
+@app.route("/about")
+def about_handle():
+    return render_template("about.html")
+
+
+
 
 
 

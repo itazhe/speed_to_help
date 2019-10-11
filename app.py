@@ -288,12 +288,12 @@ def admin_handle():
             menu_item_title_price = request.form.get("menu_item_title_price")  
             menu_item_description = request.form.get("menu_item_description")
 
-            print(menu_item_title, menu_item_title_price, menu_item_description)
+            # print(menu_item_title, menu_item_title_price, menu_item_description)
             # 获取照片
             uploaded_file = flask.request.files["azhe"]
             file_name = uploaded_file.filename
             file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
-            print(file_path)
+            # print(file_path)
             uploaded_file.save(file_path)
 
             s = ""
@@ -319,12 +319,12 @@ def admin_handle():
             menu_item_title_price = request.form.get("uprice")  
             menu_item_description = request.form.get("uinfor")
 
-            print(menu_item_title, menu_item_title_price, menu_item_description)
+            # print(menu_item_title, menu_item_title_price, menu_item_description)
             # 获取照片
             uploaded_file = flask.request.files["yrz"]
             file_name = uploaded_file.filename
             file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
-            print(file_path)
+            # print(file_path)
             uploaded_file.save(file_path)
 
             try:
@@ -348,7 +348,7 @@ def admin_handle():
             uploaded_file = flask.request.files["qwe"]
             file_name = uploaded_file.filename
             file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
-            print(file_path)
+            # print(file_path)
             uploaded_file.save(file_path)
 
             try:
@@ -372,7 +372,7 @@ def admin_handle():
             uploaded_file = flask.request.files["asd"]
             file_name = uploaded_file.filename
             file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
-            print(file_path)
+            # print(file_path)
             uploaded_file.save(file_path)
 
             try:
@@ -396,7 +396,7 @@ def admin_handle():
             uploaded_file = flask.request.files["zxc"]
             file_name = uploaded_file.filename
             file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
-            print(file_path)
+            # print(file_path)
             uploaded_file.save(file_path)
 
             try:
@@ -408,9 +408,38 @@ def admin_handle():
                 abort(Response("菜品信息失败！"))
         except:
             pass
-        
-        
-        
+
+        # 下架
+        try:
+            menu_item_title = request.form.get("uname5")
+            menu_item_title_price = request.form.get("uprice5")  
+
+            print(menu_item_title, menu_item_title_price)
+            if menu_item_title == '进店必买':
+                menu_item_title = "menu"
+                print(menu_item_title)
+            elif menu_item_title == "特色小吃":
+                menu_item_title = "menu2"
+                print(menu_item_title)
+            elif menu_item_title == "零食":
+                menu_item_title = "menu3"
+            elif menu_item_title == "酒水饮料":
+                menu_item_title = "menu4"
+            elif menu_item_title == "其他服务":
+                menu_item_title = "menu5"
+            else:
+                abort(Response("请输入正确的种类！！！"))
+
+
+            try:
+                cur = conn.cursor()
+                cur.execute("delete from %s where fname='%s'" %  (menu_item_title, menu_item_title_price))
+                cur.close()
+                conn.commit()
+            except:
+                abort(Response("菜品下架失败！"))
+        except:
+            pass
                
         return render_template("admin.html")
 
@@ -452,6 +481,45 @@ def cart2_handle():
 @app.route("/cart3")
 def cart3_handle():
     return render_template("cart_3.html")
+
+
+@app.route("/message_board", methods=["GET", "POST"])
+def message_board_handle():
+    if request.method == "GET":
+        cur = conn.cursor()
+        cur.execute("SELECT uname, pub_time, content, cid FROM user, message WHERE user.uid = message.uid")
+        res = cur.fetchall()
+        cur = conn.cursor()
+        cur.execute("SELECT * from message")
+        num = cur.rowcount
+        cur.close()        
+        
+        return render_template("detail_page_2.html", messages=res, number=num)
+    elif request.method == "POST":
+        user_info = session.get("user_info")
+        if not user_info:
+            abort(Response("未登录！"))
+
+        content = request.form.get("content")
+        if content:
+            content = content.strip()
+            if 0 < len(content) <= 200:
+                # 将留言保存到数据库
+                uid = user_info.get("uid")
+                pub_time = datetime.datetime.now()
+                from_ip = request.remote_addr
+
+                try:
+                    cur = conn.cursor()
+                    cur.execute("INSERT INTO message (uid, content, pub_time, from_ip) VALUES (%s, %s, %s, %s)", (uid, content, pub_time, from_ip))
+                    cur.close()
+                    conn.commit()
+                    return redirect(url_for("message_board_handle"))
+                except Exception as e:
+                    print(e)
+                    
+        abort(Response("留言失败！"))
+
 
 if __name__ == "__main__":
     app.run(port=80, debug=True)

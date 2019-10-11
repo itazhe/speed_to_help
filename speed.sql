@@ -19,6 +19,21 @@ CREATE TABLE speed.user (
 -- 内置管理员账户
 INSERT INTO user values (DEFAULT, 'root', md5('234567890'), '13476491560', 'az@azhe.net.cn', now(), now(), 2, 1);
 
+-- 留言板
+CREATE TABLE message (
+    mid int unsigned AUTO_INCREMENT,
+    uid int unsigned,
+    content varchar(200) NOT NULL,
+    pub_time datetime NOT NULL,
+    cid int unsigned,
+    from_ip char(15) NOT NULL,
+    state enum ('0', '1', '2') NOT NULL DEFAULT '1',  -- 0表示已删除，1表示未审核，2表示已审核
+    PRIMARY KEY (mid),
+    FOREIGN KEY (uid) REFERENCES user (uid),
+    FOREIGN KEY (cid) REFERENCES message (mid)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8;
+
+
 -- 菜单表-进店必买
 CREATE TABLE speed.menu (
     uid int unsigned AUTO_INCREMENT,

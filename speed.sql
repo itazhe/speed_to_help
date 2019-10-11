@@ -47,6 +47,36 @@ CREATE TABLE speed.menu2 (
 -- INSERT INTO menu2 values (DEFAULT, "凉皮", "6.0", "好吃", "static/img/image/3.jpg");
 -- INSERT INTO menu2 values (DEFAULT, "肉夹馍", "8.5", "美味", "static/img/image/4.jpg");
 
+-- 零食
+CREATE TABLE speed.menu3 (
+    uid int unsigned AUTO_INCREMENT,
+	fname VARCHAR(20) NOT NULL UNIQUE,
+	fprice VARCHAR(50) NOT NULL,
+    finfor VARCHAR(255) NOT NULL,
+    picture VARCHAR(255) NOT NULL,
+    PRIMARY KEY (uid)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8;
+
+-- 酒水饮料
+CREATE TABLE speed.menu4 (
+    uid int unsigned AUTO_INCREMENT,
+	fname VARCHAR(20) NOT NULL UNIQUE,
+	fprice VARCHAR(50) NOT NULL,
+    finfor VARCHAR(255) NOT NULL,
+    picture VARCHAR(255) NOT NULL,
+    PRIMARY KEY (uid)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8;
+
+-- 其他服务
+CREATE TABLE speed.menu5 (
+    uid int unsigned AUTO_INCREMENT,
+	fname VARCHAR(20) NOT NULL UNIQUE,
+	fprice VARCHAR(50) NOT NULL,
+    finfor VARCHAR(255) NOT NULL,
+    picture VARCHAR(255) NOT NULL,
+    PRIMARY KEY (uid)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8;
+
 
 -- CREATE USER 'azhe'@'127.0.0.1' IDENTIFIED BY '123456';
 -- GRANT ALL ON mydb.* to 'dj'@'127.0.0.1';

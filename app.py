@@ -5,6 +5,8 @@ import datetime, re, os, random, json, urllib.parse, urllib.request
 from flask import Flask, render_template, request, jsonify, session, abort, redirect, url_for, Response
 import pymysql
 import flask
+import json
+import requests
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -186,6 +188,18 @@ def menu_handle():
         cur2 = conn.cursor()
         cur2.execute("SELECT * from menu2")
         rows2 = cur2.fetchall()
+
+        cur3 = conn.cursor()
+        cur3.execute("SELECT * from menu3")
+        rows3 = cur3.fetchall()
+
+        cur4 = conn.cursor()
+        cur4.execute("SELECT * from menu4")
+        rows4 = cur4.fetchall()
+
+        cur5 = conn.cursor()
+        cur5.execute("SELECT * from menu5")
+        rows5 = cur5.fetchall()
         # cur.close()   
         # cur2.close()
 
@@ -215,7 +229,46 @@ def menu_handle():
             i[-1] = n
         print(rows2)
 
-        return render_template("goods.html", menus=rows, menus2=rows2)
+        # 零食
+        rows3 = list(rows3)
+        # 替换
+        m = 0 
+        while m < len(rows3):
+            rows3[m] = list(rows3[m])
+            m += 1
+        print(rows3)
+        for i in rows3:
+            n = i[-1].replace("/", "\\")
+            i[-1] = n
+        print(rows3)
+
+        # 酒水饮料
+        rows4 = list(rows4)
+        # 替换
+        m = 0 
+        while m < len(rows4):
+            rows4[m] = list(rows4[m])
+            m += 1
+        print(rows4)
+        for i in rows4:
+            n = i[-1].replace("/", "\\")
+            i[-1] = n
+        print(rows4)
+
+        # 其他服务
+        rows5 = list(rows5)
+        # 替换
+        m = 0 
+        while m < len(rows5):
+            rows5[m] = list(rows5[m])
+            m += 1
+        print(rows5)
+        for i in rows5:
+            n = i[-1].replace("/", "\\")
+            i[-1] = n
+        print(rows5)
+
+        return render_template("goods.html", menus=rows, menus2=rows2, menus3=rows3, menus4=rows4, menus5=rows5)
 
 
 
@@ -229,33 +282,135 @@ def admin_handle():
     if request.method == "GET":
         return render_template("admin.html")    
     elif request.method == "POST":
-        menu_item_title = request.form.get("menu_item_title")
-        menu_item_title_price = request.form.get("menu_item_title_price")  
-        menu_item_description = request.form.get("menu_item_description")
-
-        print(menu_item_title, menu_item_title_price, menu_item_description)
-        
-        # 获取照片
-        uploaded_file = flask.request.files["azhe"]
-        file_name = uploaded_file.filename
-        file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
-        print(file_path)
-        uploaded_file.save(file_path)
-
-        s = ""
-        for i in file_path:
-            n = i.replace("\\", "/")
-            s += n
-        # print(s)
-        file_path = s
-        
+        # 进店必买
         try:
-            cur = conn.cursor()
-            cur.execute("INSERT INTO menu VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
-            cur.close()
-            conn.commit()
+            menu_item_title = request.form.get("menu_item_title")
+            menu_item_title_price = request.form.get("menu_item_title_price")  
+            menu_item_description = request.form.get("menu_item_description")
+
+            print(menu_item_title, menu_item_title_price, menu_item_description)
+            # 获取照片
+            uploaded_file = flask.request.files["azhe"]
+            file_name = uploaded_file.filename
+            file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+            print(file_path)
+            uploaded_file.save(file_path)
+
+            s = ""
+            for i in file_path:
+                n = i.replace("\\", "/")
+                s += n
+            # print(s)
+            file_path = s
+
+            try:
+                cur = conn.cursor()
+                cur.execute("INSERT INTO menu VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
+                cur.close()
+                conn.commit()
+            except:
+                abort(Response("菜品信息失败！"))
         except:
-            abort(Response("菜品信息失败！"))
+            pass
+
+        # 特色小吃
+        try:
+            menu_item_title = request.form.get("uname")
+            menu_item_title_price = request.form.get("uprice")  
+            menu_item_description = request.form.get("uinfor")
+
+            print(menu_item_title, menu_item_title_price, menu_item_description)
+            # 获取照片
+            uploaded_file = flask.request.files["yrz"]
+            file_name = uploaded_file.filename
+            file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+            print(file_path)
+            uploaded_file.save(file_path)
+
+            try:
+                cur = conn.cursor()
+                cur.execute("INSERT INTO menu2 VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
+                cur.close()
+                conn.commit()
+            except:
+                abort(Response("菜品信息失败！"))
+        except:
+            pass
+
+        # 零食
+        try:
+            menu_item_title = request.form.get("uname2")
+            menu_item_title_price = request.form.get("uprice2")  
+            menu_item_description = request.form.get("uinfor2")
+
+            # print(menu_item_title, menu_item_title_price, menu_item_description)
+            # 获取照片
+            uploaded_file = flask.request.files["qwe"]
+            file_name = uploaded_file.filename
+            file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+            print(file_path)
+            uploaded_file.save(file_path)
+
+            try:
+                cur = conn.cursor()
+                cur.execute("INSERT INTO menu3 VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
+                cur.close()
+                conn.commit()
+            except:
+                abort(Response("菜品信息失败！"))
+        except:
+            pass
+
+        # 酒水饮料
+        try:
+            menu_item_title = request.form.get("uname3")
+            menu_item_title_price = request.form.get("uprice3")  
+            menu_item_description = request.form.get("uinfor3")
+
+            # print(menu_item_title, menu_item_title_price, menu_item_description)
+            # 获取照片
+            uploaded_file = flask.request.files["asd"]
+            file_name = uploaded_file.filename
+            file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+            print(file_path)
+            uploaded_file.save(file_path)
+
+            try:
+                cur = conn.cursor()
+                cur.execute("INSERT INTO menu4 VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
+                cur.close()
+                conn.commit()
+            except:
+                abort(Response("菜品信息失败！"))
+        except:
+            pass
+
+        # 其他服务
+        try:
+            menu_item_title = request.form.get("uname4")
+            menu_item_title_price = request.form.get("uprice4")  
+            menu_item_description = request.form.get("uinfor4")
+
+            # print(menu_item_title, menu_item_title_price, menu_item_description)
+            # 获取照片
+            uploaded_file = flask.request.files["zxc"]
+            file_name = uploaded_file.filename
+            file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+            print(file_path)
+            uploaded_file.save(file_path)
+
+            try:
+                cur = conn.cursor()
+                cur.execute("INSERT INTO menu5 VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
+                cur.close()
+                conn.commit()
+            except:
+                abort(Response("菜品信息失败！"))
+        except:
+            pass
+        
+        
+        
                
         return render_template("admin.html")
 
@@ -271,9 +426,32 @@ def about_handle():
     return render_template("about.html")
 
 
+@app.route("/garbage", methods=["GET", "POST"])
+def garbage_handle():
+    if request.method == "GET":
+        return render_template("garbage.html")
+    elif request.method == "POST":
+        uinput = request.form.get("input")
+        print(uinput)
 
+        # laji = input("\n请输入垃圾：")
+        url = "http://apis.juhe.cn/rubbish/search?q=%s&key=3113b4933f324070f50905bbf0670d77" % uinput
+        rsp = requests.get(url).text
+        print(rsp)
 
+        rsp = json.loads(rsp)
+        garbage = rsp["result"]
 
+        return render_template("garbage.html", garbages=garbage)
+
+        
+@app.route("/cart2")
+def cart2_handle():
+    return render_template("cart_2.html")
+
+@app.route("/cart3")
+def cart3_handle():
+    return render_template("cart_3.html")
 
 if __name__ == "__main__":
     app.run(port=80, debug=True)

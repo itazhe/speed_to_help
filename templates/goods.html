@@ -8,14 +8,14 @@
 
 <style>
 html,body,div,p,form,label,ul,li,dl,dt,dd,ol,img,button,b,em,strong,small,h1,h2,h3,h4,h5,h6{margin:0;padding:0;border:0;list-style:none;font-style:normal;}
-body{font-family:SimHei,'Helvetica Neue',Arial,'Droid Sans',sans-serif;font-size:14px;color:#333;background:#f2f2f2;padding: 0;min-width: 300px; max-width: 640px; margin: 0 auto; background: url()}
+body{font-family:SimHei,'Helvetica Neue',Arial,'Droid Sans',sans-serif;font-size:14px;color:#333;background:#f2f2f2;padding: 0;min-width: 300px; max-width: 640px; margin: 0 auto; background: url(/static/img/2.jpg);}
 a, a.link{color:#666;text-decoration:none;font-weight:700;}
 a, a.link:hover{color:#666;}
 h1,h2,h3,h4,h5,h6{font-weight: normal;}
 .left-menu::-webkit-scrollbar {width: 0px;}
 .main{overflow:hidden;}
 .left-menu{width:25%;float:left;background-color:#eee;position:relative;overflow-y:scroll;height: 500px;}
-.left-menu ul li{line-height:60px;widows: 200%;;text-align:center;font-size:14px;padding:5px 0;color:#333;border-bottom:1px dashed #ddd;}  
+.left-menu ul li{line-height:60px;widows: 125%;;text-align:center;font-size:14px;padding:5px 0;color:#333;border-bottom:1px dashed #ddd;}  
 .left-menu ul li.active{color:#f34b3f !important;background-color:#fff;}  
 .right-con{display:none;width:75%;float:left;overflow-y:scroll;background:#fff;position:relative;height:500px;}
 .con .con-active{display:block;}
@@ -36,9 +36,9 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 .right-con li .btn button.add{margin-left:-10px;}  
 .right-con li .btn button.add strong{background:url(static/img/up.png) no-repeat;background-size:22px 22px;}  
 .right-con li .btn .price{display:none;} 
-.footer{display:block;position:fixed;width:100%;z-index:3;bottom:0px;color:#f03c03;background:#fff;line-height:35px;font-size:15px;border-top:1px solid #e2e2e2;}  
-.footer .left{float:left;margin:5px 10px;}  
-.footer .right{float:right;}  
+.footer{display:block;width:100%;z-index:3;bottom:2px;color:#f03c03;background:#fff;font-size:15px;border-top:1px solid #e2e2e2; text-align:center;line-height:35px; position:fixed;}  
+.footer .left{float:left;margin:5px 180px; }  
+.footer .right{float:right;} 
 .footer .right .disable{background:#dbdbdb;}  
 .footer .xhlbtn{display:block;text-align:center;line-height:45px;background-color:#F03C03;padding:0 15px;color:#fff;font-weight:bold;}  
 </style>
@@ -48,11 +48,11 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 <div class="main">
 	<div class="left-menu">
 		<ul>  
-           <li class="active">进店必买<span class="num-price"></span></li>  
+           <li class="active">进店必买<span class="num-price" ></span></li>  
            <li>特色小吃</li>  
-           <li>酒水饮料</li>  
+           <li>零食</li>  
            <li>酒水饮料</li> 
-		   <li>酒水饮料</li>  
+		   <li>其他服务</li>  
            <!-- <li>酒水饮料</li>  
            <li>酒水饮料</li> 
 		   <li>酒水饮料</li>  
@@ -116,7 +116,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 	<div class="privilege hidden"></div>
 	<div class="total">共<span class="totalnumber">4</span>份，总计<span class="bill">¥</span></div>
 	<span id="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow">0</span></span>元
-	<div class="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow">0</span></span>元</div>
+	<div class="totalcountshow">0</span>份　总计：￥<span id="">0</span></span>元</div>
 	<div class="footer clearfix">
 		<div class="logo icon fl"></div>
 		<div class="brief-order fl">
@@ -236,6 +236,93 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 			    {% endfor %}
 			</ul>
 		</div>
+
+		<!-- 零食 -->
+		<div class="right-con">
+			<ul>
+				{% for l in menus3 %}
+				<li>
+					<div class="menu-img"><img src="{{ l[4] }}" width="55" height="55"></div>
+					<div class="menu-txt">
+						<h4>{{ l[1] }}</h4>
+						<p class="list1">{{ l[3] }}</p>
+						<p class="list2">
+							<b>{{ l[2] }}</b>
+							<!-- <b class="price">{{ l[2] }}</b>  -->
+							<div class="btn">  
+								<button class="minus">  
+									<strong></strong>  
+								</button>  
+								<i>0</i>  
+								 <button class="add">  
+									<strong></strong>  
+								</button>  
+								<i class="price">{{ l[2] }}</i>  
+							</div> 
+					    </p>
+				    </div>
+			    </li>
+			    {% endfor %}
+			</ul>
+		</div>
+
+		<!-- 酒水饮料 -->
+		<div class="right-con">
+			<ul>
+				{% for l in menus4 %}
+				<li>
+					<div class="menu-img"><img src="{{ l[4] }}" width="55" height="55"></div>
+					<div class="menu-txt">
+						<h4>{{ l[1] }}</h4>
+						<p class="list1">{{ l[3] }}</p>
+						<p class="list2">
+							<b>{{ l[2] }}</b>
+							<!-- <b class="price">{{ l[2] }}</b>  -->
+							<div class="btn">  
+								<button class="minus">  
+									<strong></strong>  
+								</button>  
+								<i>0</i>  
+								 <button class="add">  
+									<strong></strong>  
+								</button>  
+								<i class="price">{{ l[2] }}</i>  
+							</div> 
+					    </p>
+				    </div>
+			    </li>
+			    {% endfor %}
+			</ul>
+		</div>
+
+		<!-- 其他服务 -->
+		<div class="right-con">
+			<ul>
+				{% for l in menus5 %}
+				<li>
+					<div class="menu-img"><img src="{{ l[4] }}" width="55" height="55"></div>
+					<div class="menu-txt">
+						<h4>{{ l[1] }}</h4>
+						<p class="list1">{{ l[3] }}</p>
+						<p class="list2">
+							<b>{{ l[2] }}</b>
+							<!-- <b class="price">{{ l[2] }}</b>  -->
+							<div class="btn">  
+								<button class="minus">  
+									<strong></strong>  
+								</button>  
+								<i>0</i>  
+								 <button class="add">  
+									<strong></strong>  
+								</button>  
+								<i class="price">{{ l[2] }}</i>  
+							</div> 
+					    </p>
+				    </div>
+			    </li>
+			    {% endfor %}
+			</ul>
+		</div>
 	</div>	
 				<!-- <li>
 					<div class="menu-img"><img src="img/pic.png" width="55" height="55" /></div>
@@ -296,7 +383,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 								  <button class="add">  
 									 <strong></strong>  
 								 </button>  
-								 <i class="price">25</i>  
+								 <i class="price">25</i;;>  
 							 </div> 
 						</p>
 					</div>
@@ -482,14 +569,14 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 	</div> -->
 
 	<form>
-		<div class="footer">  
-			<div class="left">已选商品：
-			<span id="cartN">
-				<span id="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow">0</span></span>元  
+		<div class="footer" >  
+			<div class="left" >已选商品：
+			<span id="cartN" >
+				<span id="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow" >0</span></span>元  
 			</div>  
 			<div class="left">  
 				<!-- <button type="button" id="btnselect" class="xhlbtn" href="javascript:void(0)" >结算</button> -->
-				<a href="/cart"><button type="button" id="btnselect" class="xhlbtn">结算</button></a>
+				<a href="/cart"><button type="button" id="btnselect" class="xhlbtn" style="position:fixed; left:65%;">结算</button></a>
 			</div>   
 		</div>
 	</form>
@@ -505,7 +592,7 @@ $(function () {
 		var n = $(this).prev().text();  
 		var num = parseInt(n) + 1;  
 		if (num == 0) { return; }  
-		$(this).prev().text(num);  
+		$(this).prev().text(num);  //加1
 		var danjia = $(this).next().text();//获取单价  
 		// var danjia = 20;//获取单价 
 		var a = $("#totalpriceshow").html();//获取当前所选总价  
@@ -534,7 +621,7 @@ $(function () {
 			$(this).next().css("display", "none");  
 			$(this).css("display", "none");  
 			jss();//改变按钮样式  
-			 return  
+			return  
 		}  
 	});  
 	function jss() {  
@@ -542,7 +629,7 @@ $(function () {
 		if (m > 0) {  
 			$(".right").find("a").removeClass("disable");  
 		} else {  
-		   $(".right").find("a").addClass("disable");  
+			$(".right").find("a").addClass("disable");  
 		}  
 	};
 	//选项卡

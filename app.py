@@ -9,9 +9,9 @@ import json
 import requests
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+app.secret_key = b'\xa3P\x05\x1a\xf8\xc6\xff\xa4!\xd2\xb5\n\x96\x05\xed\xc3\xc90=\x07\x8d>\x8e\xeb'
 
-conn = pymysql.connect(host="127.0.0.1", user="chun", password="602661651nizhan$", database="speed", charset="utf8")
+conn = pymysql.connect(host="127.0.0.1", user="speed", password="itazhe123", database="speed", charset="utf8")
 
 
 @app.route("/")
@@ -34,7 +34,7 @@ def reg_handle():
         email = request.form.get("email")
 
         if not (uname and uname.strip() and upass and upass2 and phone and email):
-            abort(500)
+            abort(Response("请输入相关信息！"))
 
         # if re.search(r"[\u4E00-\u9FFF]", uname):
         #     abort(Response("用户名含有中文汉字！"))
@@ -212,7 +212,7 @@ def menu_handle():
             m += 1
         print(rows)
         for i in rows:
-            n = i[-1].replace("/", "\\")
+            n = i[-1].replace("\\", "/")
             i[-1] = n
         print(rows)
 
@@ -225,7 +225,7 @@ def menu_handle():
             m += 1
         print(rows2)
         for i in rows2:
-            n = i[-1].replace("/", "\\")
+            n = i[-1].replace("\\", "/")
             i[-1] = n
         print(rows2)
 
@@ -238,7 +238,7 @@ def menu_handle():
             m += 1
         print(rows3)
         for i in rows3:
-            n = i[-1].replace("/", "\\")
+            n = i[-1].replace("\\", "/")
             i[-1] = n
         print(rows3)
 
@@ -251,7 +251,7 @@ def menu_handle():
             m += 1
         print(rows4)
         for i in rows4:
-            n = i[-1].replace("/", "\\")
+            n = i[-1].replace("\\", "/")
             i[-1] = n
         print(rows4)
 
@@ -264,7 +264,7 @@ def menu_handle():
             m += 1
         print(rows5)
         for i in rows5:
-            n = i[-1].replace("/", "\\")
+            n = i[-1].replace("\\", "/")
             i[-1] = n
         print(rows5)
 
@@ -293,8 +293,6 @@ def admin_handle():
             uploaded_file = flask.request.files["azhe"]
             file_name = uploaded_file.filename
             file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
-            # print(file_path)
-            uploaded_file.save(file_path)
 
             s = ""
             for i in file_path:
@@ -302,16 +300,20 @@ def admin_handle():
                 s += n
             # print(s)
             file_path = s
+            print(file_path)
 
-            try:
-                cur = conn.cursor()
-                cur.execute("INSERT INTO menu VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
-                cur.close()
-                conn.commit()
-            except:
-                abort(Response("菜品信息失败！"))
-        except:
-            pass
+            uploaded_file.save(file_path)
+
+            if menu_item_title:
+                try:
+                    cur = conn.cursor()
+                    cur.execute("INSERT INTO menu VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
+                    cur.close()
+                    conn.commit()
+                except:
+                    abort(Response("菜品信息失败！"))
+        except Exception as e:
+            print(e)
 
         # 特色小吃
         try:
@@ -324,18 +326,26 @@ def admin_handle():
             uploaded_file = flask.request.files["yrz"]
             file_name = uploaded_file.filename
             file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+            s = ""
+            for i in file_path:
+                n = i.replace("\\", "/")
+                s += n
+            # print(s)
+            file_path = s
+            print(file_path)
             # print(file_path)
             uploaded_file.save(file_path)
-
-            try:
-                cur = conn.cursor()
-                cur.execute("INSERT INTO menu2 VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
-                cur.close()
-                conn.commit()
-            except:
-                abort(Response("菜品信息失败！"))
-        except:
-            pass
+            
+            if menu_item_title:
+                try:
+                    cur = conn.cursor()
+                    cur.execute("INSERT INTO menu2 VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
+                    cur.close()
+                    conn.commit()
+                except:
+                    abort(Response("菜品信息失败！"))
+        except Exception as e:
+            print(e)
 
         # 零食
         try:
@@ -348,18 +358,26 @@ def admin_handle():
             uploaded_file = flask.request.files["qwe"]
             file_name = uploaded_file.filename
             file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+            s = ""
+            for i in file_path:
+                n = i.replace("\\", "/")
+                s += n
+            # print(s)
+            file_path = s
+            print(file_path)
             # print(file_path)
             uploaded_file.save(file_path)
 
-            try:
-                cur = conn.cursor()
-                cur.execute("INSERT INTO menu3 VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
-                cur.close()
-                conn.commit()
-            except:
-                abort(Response("菜品信息失败！"))
-        except:
-            pass
+            if menu_item_title:
+                try:
+                    cur = conn.cursor()
+                    cur.execute("INSERT INTO menu3 VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
+                    cur.close()
+                    conn.commit()
+                except:
+                    abort(Response("菜品信息失败！"))
+        except Exception as e:
+            print(e)
 
         # 酒水饮料
         try:
@@ -372,18 +390,26 @@ def admin_handle():
             uploaded_file = flask.request.files["asd"]
             file_name = uploaded_file.filename
             file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+            s = ""
+            for i in file_path:
+                n = i.replace("\\", "/")
+                s += n
+            # print(s)
+            file_path = s
+            print(file_path)
             # print(file_path)
             uploaded_file.save(file_path)
 
-            try:
-                cur = conn.cursor()
-                cur.execute("INSERT INTO menu4 VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
-                cur.close()
-                conn.commit()
-            except:
-                abort(Response("菜品信息失败！"))
-        except:
-            pass
+            if menu_item_title:
+                try:
+                    cur = conn.cursor()
+                    cur.execute("INSERT INTO menu4 VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
+                    cur.close()
+                    conn.commit()
+                except:
+                    abort(Response("菜品信息失败！"))
+        except Exception as e:
+            print(e)
 
         # 其他服务
         try:
@@ -396,18 +422,26 @@ def admin_handle():
             uploaded_file = flask.request.files["zxc"]
             file_name = uploaded_file.filename
             file_path = os.path.join(app.config["UPLOAD_FOLDER"], file_name)
+            s = ""
+            for i in file_path:
+                n = i.replace("\\", "/")
+                s += n
+            # print(s)
+            file_path = s
+            print(file_path)
             # print(file_path)
             uploaded_file.save(file_path)
 
-            try:
-                cur = conn.cursor()
-                cur.execute("INSERT INTO menu5 VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
-                cur.close()
-                conn.commit()
-            except:
-                abort(Response("菜品信息失败！"))
-        except:
-            pass
+            if menu_item_title:
+                try:
+                    cur = conn.cursor()
+                    cur.execute("INSERT INTO menu5 VALUES (default, %s, %s, %s, %s)", (menu_item_title, menu_item_title_price, menu_item_description, file_path))
+                    cur.close()
+                    conn.commit()
+                except:
+                    abort(Response("菜品信息失败！"))
+        except Exception as e:
+            print(e)
 
         # 下架
         try:
@@ -438,8 +472,8 @@ def admin_handle():
                 conn.commit()
             except:
                 abort(Response("菜品下架失败！"))
-        except:
-            pass
+        except Exception as e:
+            print(e)
                
         return render_template("admin.html")
 
@@ -522,7 +556,7 @@ def message_board_handle():
 
 
 if __name__ == "__main__":
-    app.run(port=80, debug=True)
+    app.run(host= "0.0.0.0", port=3333, debug=True)
 
 
 # blueprint
